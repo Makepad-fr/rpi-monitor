@@ -66,8 +66,4 @@ module.exports = {
     hostname: hostname,
     temperature: getTemperature,
     cpuPercentage: getCPUUsage
-}
-
-getMemoryPercentage().then((result) => {
-    console.log('Used memory percentage ' + result);
-});
+};
