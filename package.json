@@ -1,5 +1,5 @@
 {
-  "name": "rpi-monitor",
+  "name": "@makepad/rpi-monitor",
   "version": "1.0.0",
   "description": "Basic Raspberry Pi monitoring functions",
   "main": "index.js",
