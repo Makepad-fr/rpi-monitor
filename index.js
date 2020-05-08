@@ -50,9 +50,12 @@ async function getCPUUsage() {
         var endCPUIdle;
         setTimeout(
             function () {
+                const archCoef = ((os.arch() !== 'arm' && os.arch() !== 'arm64') ? 1 : 10);
                 endCPUIdle = os.cpus().map((core) => core.times.idle); 
                 let idleDifference = endCPUIdle.map((value, index) => value - startCPUIdle[index]);
-                idleDifference = idleDifference.map((idle) => (500 - idle)/500);
+                idleDifference = idleDifference.map((idle) => { 
+                    return (((500 * archCoef) - idle)/(500 * archCoef));
+                });
                 resolve(idleDifference);
             },
             500
