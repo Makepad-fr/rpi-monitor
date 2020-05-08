@@ -1,0 +1,21 @@
+{
+  "name": "rpi-monitor",
+  "version": "1.0.0",
+  "description": "Basic Raspberry Pi monitoring functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-makepad:Clique-Paris/rpi-monitor.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Microprocessor",
+    "RaspberryPi",
+    "ARM"
+  ],
+  "author": "Kaan Yagci <kaan.yagci@makepad.fr>",
+  "license": "MIT"
+}
