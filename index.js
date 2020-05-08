@@ -1,4 +1,5 @@
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 const os = require('os');
 
 /**
@@ -8,7 +9,7 @@ const os = require('os');
 **/
 async function getTemperature() {
     return new Promise((resolve, reject) => {
-        temp = spawn('cat', ['/sys/class/thermal/thermal_zone0/temp']);
+        let temp = spawn('cat', ['/sys/class/thermal/thermal_zone0/temp']);
         temp.stdout.on('data', function(data) {
                 resolve(data/1000);
         });
@@ -24,9 +25,18 @@ const hostname = os.hostname();
 * @return {double} returns the used memory pourcentage of the device
 **/
 function getMemoryPercentage() {
-    const free = os.freemem();
-    const total = os.totalmem();
-    return ((total - free) / total) * 100;
+    return new Promise((resolve, reject) => {
+	let temp = exec('free | grep -i "mem"', function(error, stdout, stderr) {
+	    if (error) {
+		reject(stderr.replace(/\n/g, ''));
+	    } else {
+		let response = stdout.replace(/\n/g,'').replace(/\s+/g,' ');
+		const freeMem = parseInt(response.split(' ')[2]);
+		const totalMem = parseInt(response.split(' ')[1]);
+		resolve(freeMem/totalMem*100);
+	    }
+	});
+    });
 }
 
 /**
@@ -51,11 +61,13 @@ async function getCPUUsage() {
 }
 
 
-module.exports = {
+module.exports = {
     freeMemoryPercentage: getMemoryPercentage,
     hostname: hostname,
     temperature: getTemperature,
     cpuPercentage: getCPUUsage
 }
 
-getCPUUsage();
+getMemoryPercentage().then((result) => {
+    console.log('Used memory percentage ' + result);
+});
