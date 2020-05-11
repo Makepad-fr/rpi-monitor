@@ -17,7 +17,7 @@ async function getTemperature() {
 }
 
 const hostname = os.hostname();
-const arch = ors.arch();
+const arch = os.arch();
 
 /**
 * Function returns the used memory percentage.
