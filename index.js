@@ -49,7 +49,7 @@ async function getDeviceModel() {
     return new Promise((resolve, reject) => {
         let temp = spawn('cat', ['/sys/firmware/devicetree/base/model']);
         temp.stdout.on('data', function(data) {
-            resolve(data/1000);
+            resolve(data);
         });
     });
 }
