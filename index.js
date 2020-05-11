@@ -17,6 +17,7 @@ async function getTemperature() {
 }
 
 const hostname = os.hostname();
+const arch = ors.arch();
 
 /**
 * Function returns the used memory percentage.
@@ -68,5 +69,6 @@ module.exports = {
     freeMemoryPercentage: getMemoryPercentage,
     hostname: hostname,
     temperature: getTemperature,
-    cpuPercentage: getCPUUsage
+    cpuPercentage: getCPUUsage,
+    arch: arch
 };
